@@ -1,0 +1,10 @@
+# GoLand
+.idea
+
+# Pact output
+contract/log
+contract/logs
+contract/pacts
+
+# Build output
+paymentapp
