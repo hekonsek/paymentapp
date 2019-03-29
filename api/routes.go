@@ -54,6 +54,15 @@ func routes(apiServer *ApiServer, router *gin.Engine) {
 			"id": id,
 		})
 	})
+	router.PUT("/payments", func(c *gin.Context) {
+		body, err := ioutil.ReadAll(c.Request.Body)
+		generateErrorResponse(c, err)
+		var payment payments.Payment
+		err = json.Unmarshal(body, &payment)
+		generateErrorResponse(c, err)
+		err = apiServer.Store.Update(&payment)
+		generateResponse(c, err, nil)
+	})
 	router.DELETE("/payment/:id", func(c *gin.Context) {
 		err := apiServer.Store.Delete(c.Param("id"))
 		generateResponse(c, err, nil)
